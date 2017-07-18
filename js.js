@@ -1,8 +1,8 @@
-function Clock(UTC, elem) {
-    this.timezone = UTC;
+function Clock(timezone, elem) {
+    this.timezone = timezone;
     this.elem = document.getElementById(elem);
-    this.fullTime = true;
-    this.elem.addEventListener('click', this.toggle.bind(this));
+	this.fullTime = true;
+	this.elem.addEventListener('click', this.toggle.bind(this));
 };
 
 Clock.prototype.setTime = function setTime() {
@@ -36,21 +36,21 @@ Clock.prototype.toggle = function toggle() {
 
 Clock.prototype.toggleClock = function toggleClock() {
     this.setTimeformat();
-
+    
     if(this.fullTime) {
         this.elem.innerHTML = this.full;
     } else {
         this.elem.innerHTML = this.short;
     }
-
+	
 };
 
 Clock.prototype.start = function() {
     this.toggleClock();
-    var it = this;
+    var bind = this;
 
     this.timer = setInterval(function() {
-        it.toggleClock();
+        bind.toggleClock();
     }, 1000);
 };
 
