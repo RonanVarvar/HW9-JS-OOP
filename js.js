@@ -1,8 +1,8 @@
 function Clock(timezone, elem) {
     this.timezone = timezone;
     this.elem = document.getElementById(elem);
-	this.fullTime = true;
-	this.elem.addEventListener('click', this.toggle.bind(this));
+    this.fullTime = true;
+    this.elem.addEventListener('click', this.toggle.bind(this));
 };
 
 Clock.prototype.setTime = function setTime() {
