@@ -5,53 +5,47 @@ function Clock(timezone, elem) {
     this.elem.addEventListener('click', this.toggle.bind(this));
 };
 
-Clock.prototype.setTime = function setTime() {
-    var UAtoUTC = 3 * 60 * 60 * 1000;
+Clock.prototype.setTime = function () {
+    var uatime = 3 * 60 * 60 * 1000;
+    var _timezone = +new Date() + this.timezone * 60 * 60 * 1000 - uatime;
+    var now = new Date();
 
-    this.diffTime = +new Date() + this.timezone * 60 * 60 * 1000 - UAtoUTC;
-    this.now = new Date();
-    this.diffTime = new Date(this.diffTime);
+    this.diffTime = new Date(_timezone);
 };
 
-Clock.prototype.setTimeformat = function setTimeformat() {
+Clock.prototype.fotmatTime = function () {
     this.setTime();
 
     var hours = this.diffTime.getHours();
     var min = this.diffTime.getMinutes();
     var sec = this.diffTime.getSeconds();
 
-    if(hours < 10) hours = '0' + hours;
+    if (hours < 10) hours = '0' + hours;
 
-    if(min < 10) min = '0' + min;
+    if (min < 10) min = '0' + min;
 
-    if(sec < 10) sec = '0' + sec;
+    if (sec < 10) sec = '0' + sec;
 
     this.full = hours + ":" + min + ":" + sec;
     this.short = hours + ":" + min;
 };
 
-Clock.prototype.toggle = function toggle() {
+Clock.prototype.toggle = function () {
     this.fullTime = !this.fullTime;
 };
 
-Clock.prototype.toggleClock = function toggleClock() {
-    this.setTimeformat();
-    
-    if(this.fullTime) {
+Clock.prototype.toggleClock = function () {
+    this.fotmatTime();
+
+    if (this.fullTime) {
         this.elem.innerHTML = this.full;
     } else {
         this.elem.innerHTML = this.short;
     }
-	
 };
 
-Clock.prototype.start = function() {
-    this.toggleClock();
-    var bind = this;
-
-    this.timer = setInterval(function() {
-        bind.toggleClock();
-    }, 1000);
+Clock.prototype.start = function () {
+    setInterval(this.toggleClock.bind(this), 1000);
 };
 
 var showtimeLondon = new Clock('0', 'time1');
