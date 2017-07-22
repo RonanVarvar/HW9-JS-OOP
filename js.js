@@ -7,10 +7,10 @@ function Clock(timezone, elem) {
 
 Clock.prototype.setTime = function () {
     var uatime = 3 * 60 * 60 * 1000;
-    var _timezone = +new Date() + this.timezone * 60 * 60 * 1000 - uatime;
     var now = new Date();
+    var timezone = Number(now) + this.timezone * 60 * 60 * 1000 - uatime;
 
-    this.diffTime = new Date(_timezone);
+    this.diffTime = new Date(timezone);
 };
 
 Clock.prototype.fotmatTime = function () {
